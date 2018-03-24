@@ -1,0 +1,29 @@
+#!/usr/local/bin/dgsh
+
+SEDYANG=./sedyang
+
+if [ "$#" -eq 2 ]; then
+    NEEDLE=$1
+    MODULE=$2
+elif [ "$#" -eq 3 ]; then
+    NEEDLE=$1
+    HAYSTACK=$2
+    MODULE=$3
+else
+    echo "Wrong arguments"
+fi
+
+[ "$#" -eq 2 ] \
+    && $SEDYANG -v key=$NEEDLE $MODULE
+
+[ "$#" -eq 3 ] \
+    && $SEDYANG -v key=$HAYSTACK $MODULE \
+        | tee \
+        | {{
+            sed -ne '1p'
+            sed -e '1d;$d' | $SEDYANG -v key=$NEEDLE -v lines=no 
+            sed -ne '$p'
+          }} \
+        | cat
+
+

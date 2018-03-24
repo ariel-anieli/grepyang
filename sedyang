@@ -1,0 +1,24 @@
+#!/usr/bin/awk -f
+
+function FLUSH() {
+    if (LINES=="YES")
+        print (ARGC>2? FILENAME ":" : "") FNR, $0
+    else if (LINES=="NO")
+        print
+}
+
+function PRINT(offset) {
+    FLUSH()
+    (getline>0 && index($0,"}")!=offset)? PRINT(offset) : FLUSH()
+}
+
+BEGIN {
+    OFS   = ":"
+    KEY   = key ".*{"
+    LINES = lines=="no"? "NO" : "YES"
+}
+
+$0~KEY {
+    offset = index($0,$1)
+    PRINT(offset)
+}
