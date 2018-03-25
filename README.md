@@ -4,7 +4,7 @@ Greps through a [YANG](https://tools.ietf.org/html/rfc7950) module, and takes ou
 ## Usage
 ### Find a block within a module
 ```
-# /grepyang cancel-commit ietf-netconf@2011-06-01.yang
+# ./grepyang cancel-commit ietf-netconf@2011-06-01.yang
 853:  rpc cancel-commit {
 854:    if-feature confirmed-commit;
 855:    description
@@ -30,7 +30,7 @@ Greps through a [YANG](https://tools.ietf.org/html/rfc7950) module, and takes ou
 
 ### Find a block within a block
 ```
-# /grepyang input cancel-commit ietf-netconf@2011-06-01.yang
+# ./grepyang input cancel-commit ietf-netconf@2011-06-01.yang
 853:  rpc cancel-commit {
 862:    input {
 863:      leaf persist-id {
