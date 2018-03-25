@@ -1,5 +1,5 @@
 # grepyang
-Greps through a [YANG](https://tools.ietf.org/html/rfc7950) module, and takes out blocks matching a key. _grepyang_ relies on _dgsh,_ [the Directed graph shell](https://github.com/dspinellis/dgsh).
+Greps through a [YANG](https://tools.ietf.org/html/rfc7950) module, and takes out blocks matching a key. _grepyang_ runs on _dgsh,_ [the Directed graph shell](https://github.com/dspinellis/dgsh).
 
 ## Usage
 ### Find a block within a module
