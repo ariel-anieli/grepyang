@@ -25,5 +25,3 @@ fi
             sed -ne '$p'
           }} \
         | cat
-
-
