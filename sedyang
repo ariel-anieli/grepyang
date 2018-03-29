@@ -1,10 +1,11 @@
 #!/usr/bin/awk -f
 
 function FLUSH() {
-    if (LINES=="YES")
-        print (ARGC>2? FILENAME ":" : "") FNR, $0
-    else if (LINES=="NO")
-        print
+    if (LINES=="YES"){
+        header = ARGC>2? FILENAME ":" : ""
+        print header FNR, $0
+    } else if (LINES=="NO")
+        print 
 }
 
 function PRINT(offset) {
