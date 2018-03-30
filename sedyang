@@ -5,7 +5,7 @@ function FLUSH() {
         header = ARGC>2? FILENAME ":" : ""
         print header FNR, $0
     } else if (LINES=="NO")
-        print 
+        print
 }
 
 function PRINT(offset) {
@@ -20,6 +20,6 @@ BEGIN {
 }
 
 $0~KEY {
-    offset = index($0,$1)
+    offset = index($0,(shift=="yes"? $2 : $1))
     PRINT(offset)
 }
