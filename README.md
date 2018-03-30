@@ -31,17 +31,17 @@ Greps through a [YANG](https://tools.ietf.org/html/rfc7950) module, and takes ou
 ### Find a block within a block
 ```
 # ./grepyang input cancel-commit ietf-netconf@2011-06-01.yang
-  rpc cancel-commit {
-    input {
-      leaf persist-id {
-        type string;
-        description
-          "This parameter is given in order to cancel a persistent
-           confirmed commit.  The value must be equal to the value
-           given in the 'persist' parameter to the <commit> operation.
-           If it does not match, the operation fails with an
-          'invalid-value' error.";
-      }
-    }
-  }
+853:  rpc cancel-commit {
+862:    input {
+863:      leaf persist-id {
+864:        type string;
+865:        description
+866:          "This parameter is given in order to cancel a persistent
+867:           confirmed commit.  The value must be equal to the value
+868:           given in the 'persist' parameter to the <commit> operation.
+869:           If it does not match, the operation fails with an
+870:          'invalid-value' error.";
+871:      }
+872:    }
+873:  }
 ```
