@@ -14,10 +14,11 @@ else
 fi
 
 [ "$#" -eq 2 ] && $SED -v key=$NEEDLE $MODULE
-[ "$#" -eq 3 ] && $SED -v key=$HAYSTACK $MODULE \
-        | tee \
-        | {{
+[ "$#" -eq 3 ] && $SED -v key=$HAYSTACK $MODULE |
+        tee |
+        {{
             sed -ne '1p'
             sed -e '1d;$d' | $SED -v shift=yes -v key=$NEEDLE -v lines=no
             sed -ne '$p'
-        }} | cat
+        }} |
+        cat
