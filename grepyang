@@ -21,4 +21,11 @@ fi
             sed -e '1d;$d' | $SED -v shift=yes -v key=$NEEDLE -v lines=no
             sed -ne '$p'
         }} |
-        cat
+        cat |
+        awk '{output[FNR]=$0};
+             END {
+                 if (FNR>2){
+                     for (line in output)
+                         print output[line]
+                 }
+             }'
