@@ -1,47 +1,48 @@
 # grepyang
-Greps through a [YANG](https://tools.ietf.org/html/rfc7950) module, and takes out blocks matching a key. _grepyang_ runs on _dgsh,_ [the Directed Graph Shell](https://github.com/dspinellis/dgsh).
+Greps through a [YANG](https://tools.ietf.org/html/rfc7950) module, and takes out
+blocks matching a key.
 
-## Usage
-### Find a block within a module
+## Find a block within a module
 ```
-# ./grepyang cancel-commit ietf-netconf@2011-06-01.yang
-853:  rpc cancel-commit {
-854:    if-feature confirmed-commit;
-855:    description
-856:      "This operation is used to cancel an ongoing confirmed commit.
-857:       If the confirmed commit is persistent, the parameter
-858:       'persist-id' must be given, and it must match the value of the
-859:       'persist' parameter.";
-860:    reference "RFC 6241, Section 8.4.4.1";
-861:
-862:    input {
-863:      leaf persist-id {
-864:        type string;
-865:        description
-866:          "This parameter is given in order to cancel a persistent
-867:           confirmed commit.  The value must be equal to the value
-868:           given in the 'persist' parameter to the <commit> operation.
-869:           If it does not match, the operation fails with an
-870:          'invalid-value' error.";
-871:      }
-872:    }
-873:  }
+curl -s https://www.yangcatalog.org/all_modules/ietf-netconf@2024-04-16.yang -O
+./grepyang cancel-commit ietf-netconf@2024-04-16.yang
+928:  rpc cancel-commit {
+929:    if-feature "confirmed-commit";
+930:    description
+931:      "This operation is used to cancel an ongoing confirmed commit.
+932:       If the confirmed commit is persistent, the parameter
+933:       'persist-id' must be given, and it must match the value of the
+934:       'persist' parameter.";
+935:    reference
+936:      "RFC 6241, Section 8.4.4.1";
+937:    input {
+938:      leaf persist-id {
+939:        type string;
+940:        description
+941:          "This parameter is given in order to cancel a persistent
+942:           confirmed commit.  The value must be equal to the value
+943:           given in the 'persist' parameter to the <commit>
+944:           operation.  If it does not match, the operation fails
+945:           with an 'invalid-value' error.";
+946:      }
+947:    }
+948:  }
 ```
 
-### Find a block within a block
+## Find a block within a block
 ```
-# ./grepyang input cancel-commit ietf-netconf@2011-06-01.yang
-853:  rpc cancel-commit {
-862:    input {
-863:      leaf persist-id {
-864:        type string;
-865:        description
-866:          "This parameter is given in order to cancel a persistent
-867:           confirmed commit.  The value must be equal to the value
-868:           given in the 'persist' parameter to the <commit> operation.
-869:           If it does not match, the operation fails with an
-870:          'invalid-value' error.";
-871:      }
-872:    }
-873:  }
+./grepyang input cancel-commit ietf-netconf@2024-04-16.yang
+928:  rpc cancel-commit {
+937:    input {
+938:      leaf persist-id {
+939:        type string;
+940:        description
+941:          "This parameter is given in order to cancel a persistent
+942:           confirmed commit.  The value must be equal to the value
+943:           given in the 'persist' parameter to the <commit>
+944:           operation.  If it does not match, the operation fails
+945:           with an 'invalid-value' error.";
+946:      }
+947:    }
+948:  }
 ```
