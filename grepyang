@@ -1,31 +1,34 @@
-#!/usr/local/bin/dgsh
+#!/usr/bin/env sh
 
 SED=./sedyang
 
-if [ "$#" -eq 2 ];then
+if [ "$#" -eq 2 ]; then
     NEEDLE=$1
     MODULE=$2
-elif [ "$#" -eq 3 ];then
+
+    $SED -v key=$NEEDLE $MODULE
+
+elif [ "$#" -eq 3 ]; then
     NEEDLE=$1
     HAYSTACK=$2
     MODULE=$3
+    FIND="$SED -v key=$HAYSTACK $MODULE"
+
+    $FIND | sed -ne '1p' > first
+    $FIND | sed -ne '$p' > last
+    $FIND |
+	sed -e '1d;$d' |
+	$SED -v shift=yes -v key=$NEEDLE -v lines=no > search
+
+    cat first search last |
+    awk '{output[FNR]=$0};
+    END {
+	if (FNR>2){
+	    for (line in output)
+		print output[line]
+	}
+    }'
+    rm first search last
 else
     echo "Wrong arguments"
 fi
-
-[ "$#" -eq 2 ] && $SED -v key=$NEEDLE $MODULE
-[ "$#" -eq 3 ] && $SED -v key=$HAYSTACK $MODULE |
-        tee |
-        {{
-            sed -ne '1p'
-            sed -e '1d;$d' | $SED -v shift=yes -v key=$NEEDLE -v lines=no
-            sed -ne '$p'
-        }} |
-        cat |
-        awk '{output[FNR]=$0};
-             END {
-                 if (FNR>2){
-                     for (line in output)
-                         print output[line]
-                 }
-             }'
